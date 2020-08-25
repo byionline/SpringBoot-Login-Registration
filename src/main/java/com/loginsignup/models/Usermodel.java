@@ -19,10 +19,8 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.NaturalId;
 
 @Entity
-@Table(name = "user", uniqueConstraints = { 
-@UniqueConstraint(columnNames = { "username" }),
-@UniqueConstraint(columnNames = { "email_id" }) 
-})
+@Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = { "username" }),
+        @UniqueConstraint(columnNames = { "emailId" }) })
 public class Usermodel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +38,7 @@ public class Usermodel {
     @Size(max = 100)
     @NaturalId
     @Email
-    private String email_id;
+    private String emailId;
 
     @NotBlank
     @Size(max = 100)
@@ -70,12 +68,12 @@ public class Usermodel {
         this.username = username;
     }
 
-    public String getEmail_id() {
-        return email_id;
+    public String getEmailId() {
+        return emailId;
     }
 
-    public void setEmail_id(String email_id) {
-        this.email_id = email_id;
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
     }
 
     public String getPassword() {
@@ -86,10 +84,10 @@ public class Usermodel {
         this.password = password;
     }
 
-    public Usermodel(String name, String username, String email_id, String password) {
+    public Usermodel(String name, String username, String emailId, String password) {
         this.name = name;
         this.username = username;
-        this.email_id = email_id;
+        this.emailId = emailId;
         this.password = password;
     }
 
@@ -97,8 +95,9 @@ public class Usermodel {
     }
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name="user_id"),
-    inverseJoinColumns = @JoinColumn(name="roles_id"))
+    @JoinTable(name = "user_roles", 
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Roles> role = new HashSet<>();
 
     public Set<Roles> getRole() {
@@ -108,11 +107,5 @@ public class Usermodel {
     public void setRole(Set<Roles> role) {
         this.role = role;
     }
-
-    
-
-    
-
-
 
 }
