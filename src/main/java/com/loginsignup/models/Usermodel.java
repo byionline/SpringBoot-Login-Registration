@@ -16,12 +16,20 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.loginsignup.util.CustomTimeStamp;
+
 import org.hibernate.annotations.NaturalId;
 
 @Entity
 @Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = { "username" }),
         @UniqueConstraint(columnNames = { "emailId" }) })
-public class Usermodel {
+public class Usermodel extends CustomTimeStamp {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
