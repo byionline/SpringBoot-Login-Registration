@@ -9,12 +9,11 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 @Component
-public class customJwtAuthentication implements AuthenticationEntryPoint {
-    private static final Logger logger = LoggerFactory.getLogger(customJwtAuthentication.class);
+public class CustomJwtAuthentication implements AuthenticationEntryPoint {
+    private static final Logger logger = LoggerFactory.getLogger(CustomJwtAuthentication.class);
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException authException) throws IOException, ServletException {
-        // TODO Auto-generated method stub
         logger.error("Unauthorized Error. {}", authException.getMessage());
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
     }

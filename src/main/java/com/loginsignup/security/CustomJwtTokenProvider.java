@@ -13,8 +13,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 @Component
-public class customJwtTokenProvider {
-    private static final Logger logger = LoggerFactory.getLogger(customJwtTokenProvider.class);
+public class CustomJwtTokenProvider {
+    private static final Logger logger = LoggerFactory.getLogger(CustomJwtTokenProvider.class);
     @Value("${app.jwtSecret}")
     private String jwtSecret;
     @Value("${app.jwtExpiry}")
