@@ -34,7 +34,7 @@ public class Usermodel extends CustomTimeStamp {
     @NotBlank
     private String username;
     @NotBlank
-    @Size(max = 100)
+    @Size(max = 70)
     @NaturalId
     @Email
     private String emailId;
