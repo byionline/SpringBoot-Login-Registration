@@ -36,11 +36,15 @@ public class CustomAuthController {
     CustomJwtTokenProvider customJwtTokenProvider;
     @PostMapping("/signup")
     public ResponseEntity<?> userRegistration(@Valid @RequestBody CustomSignupRequest customSignupRequest){
-        if(userRepository.exitsByUsername(customSignupRequest.getUsername())){
+        if(userRepository.existsUsermodelByUsername(customSignupRequest.getUsername())){
             return new ResponseEntity<>(new CustomApiResponse("Username Already Taken.", false), HttpStatus.BAD_REQUEST);
         }
+        if(userRepository.existsUsermodelByEmailId(customSignupRequest.getEmailId())){
+            return new ResponseEntity<>(new CustomApiResponse("Email ID is already registered.", false), HttpStatus.BAD_REQUEST);
+        }
+        
         //Now UserRegistration will be Done
-        Usermodel usermodel = new Usermodel(customSignupRequest.getName(), customSignupRequest.getEmailId(), customSignupRequest.getUsername(), customSignupRequest.getPassword());
+        Usermodel usermodel = new Usermodel(customSignupRequest.getName(), customSignupRequest.getUsername(), customSignupRequest.getEmailId(),  customSignupRequest.getPassword());
         usermodel.setPassword(passwordEncoder.encode(usermodel.getPassword()));
         Roles roles = userRoleRepository.findByName(RoleType.USER_ROLE).orElseThrow(()-> new CustomServerErrorException("User Role is not set"));
         usermodel.setRole(Collections.singleton(roles));
